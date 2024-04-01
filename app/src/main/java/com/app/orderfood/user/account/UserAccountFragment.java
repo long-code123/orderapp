@@ -1,30 +1,29 @@
-package com.app.orderfood.user.home;
+package com.app.orderfood.user.account;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import com.app.orderfood.databinding.FragmentUserAccountBinding;
 
-import com.app.orderfood.R;
-import com.app.orderfood.databinding.FragmentUserHomeBinding;
 
-public class UserHomeFragment extends Fragment {
+public class UserAccountFragment extends Fragment {
 
-    FragmentUserHomeBinding binding;
+    FragmentUserAccountBinding binding;
 
-    public UserHomeFragment() {
+    public UserAccountFragment() {
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentUserHomeBinding.inflate(inflater, container, false);
+        binding = FragmentUserAccountBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -35,4 +34,5 @@ public class UserHomeFragment extends Fragment {
         //Code từ đây code đi
 
     }
+
 }

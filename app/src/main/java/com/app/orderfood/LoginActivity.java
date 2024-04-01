@@ -1,6 +1,7 @@
 package com.app.orderfood;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,10 +12,22 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.app.orderfood.databinding.ActivityLoginBinding;
+import com.app.orderfood.user.MainActivity;
+import com.google.android.gms.auth.api.identity.BeginSignInRequest;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthProvider;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
@@ -26,6 +39,8 @@ public class LoginActivity extends AppCompatActivity {
     ActivityLoginBinding binding;
 
     FirebaseAuth firebaseAuth;
+
+    GoogleSignInClient googleSignInClient;
 
 
     @Override
@@ -84,5 +99,63 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        googleSignInClient = GoogleSignIn.getClient(LoginActivity.this, googleSignInOptions);
+
+
+        binding.btnGg.setOnClickListener(v -> {
+            Intent intent = googleSignInClient.getSignInIntent();
+            startActivityForResult(intent, 100);
+        });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100) {
+            // When request code is equal to 100 initialize task
+            Task<GoogleSignInAccount> signInAccountTask = GoogleSignIn.getSignedInAccountFromIntent(data);
+
+            if (signInAccountTask.isSuccessful()) {
+                Toast.makeText(LoginActivity.this, "Ok!!", Toast.LENGTH_SHORT).show();
+
+                try {
+                    // Initialize sign in account
+                    GoogleSignInAccount googleSignInAccount = signInAccountTask.getResult(ApiException.class);
+                    // Check condition
+                    if (googleSignInAccount != null) {
+                        // When sign in account is not equal to null initialize auth credential
+                        AuthCredential authCredential = GoogleAuthProvider.getCredential(googleSignInAccount.getIdToken(), null);
+                        // Check credential
+                        firebaseAuth.signInWithCredential(authCredential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                // Check condition
+                                if (task.isSuccessful()) {
+                                    // When task is successful redirect to profile activity display Toast
+                                    startActivity(new Intent(LoginActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                                    Toast.makeText(LoginActivity.this, "Firebase authentication successful!!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    // When task is unsuccessful display Toast
+                                    Toast.makeText(LoginActivity.this, "Authentication Failed :" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+
+
+                    }
+                } catch (ApiException e) {
+                    e.printStackTrace();
+                }
+
+            } else  {
+                Toast.makeText(LoginActivity.this, "Fail!!", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
