@@ -49,9 +49,15 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
+    //platform - code tích hợp (hỗ trợ)
     implementation 'com.google.firebase:firebase-bom:32.8.0'
+
+    //Authen - kiểm soát quyền
     implementation 'com.google.firebase:firebase-auth:22.3.1'
+
+    //services - tích hợp đăng nhập
     implementation 'com.google.android.gms:play-services-auth:21.0.0'
 
+    //mã phone quốc gia
     implementation 'com.hbb20:ccp:2.5.1'
 }
