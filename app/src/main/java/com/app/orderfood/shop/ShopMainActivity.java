@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.orderfood.databinding.ActivityMainBinding;
 import com.app.orderfood.databinding.ActivityShopMainBinding;
+import com.google.firebase.database.DatabaseReference;
+//import com.google.firebase.database.DatabaseReference;
 
 class ShopMainActivity extends AppCompatActivity {
     ActivityShopMainBinding binding;
@@ -18,5 +20,13 @@ class ShopMainActivity extends AppCompatActivity {
 
 
 
+        initLocation();
+
+
+
+    }
+
+    private void initLocation() {
+//        DatabaseReference myred = database.get
     }
 }
