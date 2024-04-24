@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "1005371742714",
+    "firebase_url": "https://order-app-17b85-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "order-app-17b85",
     "storage_bucket": "order-app-17b85.appspot.com"
   },
@@ -12,7 +13,28 @@
           "package_name": "com.app.orderfood"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1005371742714-hmprd8fq67r9o9o7cngc880goj1qoe5h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.orderfood",
+            "certificate_hash": "05e534ba4de2426179438b0bbe4567eebb553eae"
+          }
+        },
+        {
+          "client_id": "1005371742714-u27helmlh3jpgoc0djj5kaknui40fmi8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.orderfood",
+            "certificate_hash": "c5b05e5c31d5fed945e44d8e734a16c5ed8fbf26"
+          }
+        },
+        {
+          "client_id": "1005371742714-035e3r267ht9geiblo316vr78p8rsh2j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyA7mV370qIt2TWx8jGdnzuNmlmXk8TtL4Q"
@@ -20,7 +42,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1005371742714-035e3r267ht9geiblo316vr78p8rsh2j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

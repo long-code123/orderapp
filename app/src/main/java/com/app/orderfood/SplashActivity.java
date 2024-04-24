@@ -1,14 +1,15 @@
 package com.app.orderfood;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.app.orderfood.fb.Utils;
+import com.app.orderfood.fb.shop.ShopUtils;
+import com.app.orderfood.models.Category;
 import com.app.orderfood.user.MainActivity;
-import com.google.firebase.Firebase;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 
 @SuppressLint("CustomSplashScreen")
@@ -23,20 +24,31 @@ public class SplashActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        checkLogin();
+        //checkLogin();
+
+
+        /*ShopUtils.insertCategory(
+                new Category(
+                        Utils.getNewId(), "khgffsdhkgfhd", "Cơm rang"
+                )
+        );*/
+
+
+        //ShopUtils.getAllCategoryListener();
+        ShopUtils.deleteCategory(0);
 
         //FirebaseAuth.getInstance().signOut();
     }
 
     private void checkLogin() {
-        if (firebaseAuth.getCurrentUser()!= null) {
+        if (firebaseAuth.getCurrentUser() != null) {
             startMain();
         } else {
             startLogin();
         }
     }
 
-    private void  startMain(){
+    private void startMain() {
         startActivity(new Intent(SplashActivity.this, MainActivity.class));
         finish();
     }
@@ -48,5 +60,6 @@ public class SplashActivity extends AppCompatActivity {
 
     @Override
     @SuppressLint("MissingSuperCall")
-    public void onBackPressed() { }
+    public void onBackPressed() {
+    }
 }

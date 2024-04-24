@@ -1,10 +1,10 @@
 package com.app.orderfood.models;
 
 public class Foods {
+    private long Id;
     private int CategoryId;
     private String Description;
     private boolean BestFood;
-    private int Id;
     private int LocationId;
     private double Price;
     private String ImagePath;
@@ -14,6 +14,23 @@ public class Foods {
     private int TimeValue;
     private String Title;
     private int numberInCart;
+
+
+    public Foods(long id, int categoryId, String description, boolean bestFood, int locationId, double price, String imagePath, int priceId, double star, int timeId, int timeValue, String title, int numberInCart) {
+        Id = id;
+        CategoryId = categoryId;
+        Description = description;
+        BestFood = bestFood;
+        LocationId = locationId;
+        Price = price;
+        ImagePath = imagePath;
+        PriceId = priceId;
+        Star = star;
+        TimeId = timeId;
+        TimeValue = timeValue;
+        Title = title;
+        this.numberInCart = numberInCart;
+    }
 
     public Foods() {
     }
@@ -47,11 +64,11 @@ public class Foods {
         BestFood = bestFood;
     }
 
-    public int getId() {
+    public long getId() {
         return Id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         Id = id;
     }
 

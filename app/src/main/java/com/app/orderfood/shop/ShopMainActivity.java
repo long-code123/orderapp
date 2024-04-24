@@ -6,8 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.orderfood.databinding.ActivityMainBinding;
 import com.app.orderfood.databinding.ActivityShopMainBinding;
+import com.app.orderfood.fb.shop.ShopUtils;
+import com.app.orderfood.models.Category;
 import com.google.firebase.database.DatabaseReference;
-//import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.DatabaseReference;
 
 class ShopMainActivity extends AppCompatActivity {
     ActivityShopMainBinding binding;
@@ -18,11 +20,7 @@ class ShopMainActivity extends AppCompatActivity {
         binding = ActivityShopMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
-
         initLocation();
-
-
 
     }
 

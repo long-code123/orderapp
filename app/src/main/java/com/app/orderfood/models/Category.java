@@ -1,19 +1,26 @@
 package com.app.orderfood.models;
 
 public class Category {
-    private int id;
+    private long Id;
     private String ImagePath;
     private String Name;
+
+
+    public Category(long Id, String imagePath, String name) {
+        this.Id = Id;
+        ImagePath = imagePath;
+        Name = name;
+    }
 
     public Category() {
     }
 
-    public int getId() {
-        return id;
+    public long getId() {
+        return Id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(long id) {
+        this.Id = id;
     }
 
     public String getImagePath() {

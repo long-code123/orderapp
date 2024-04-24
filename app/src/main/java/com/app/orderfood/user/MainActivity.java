@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                BadgeDrawable badgeDrawable = binding.tlMenu.getTabAt(position).getOrCreateBadge();
-                badgeDrawable.setVisible(false);
+                //BadgeDrawable badgeDrawable = binding.tlMenu.getTabAt(position).getOrCreateBadge();
+                //badgeDrawable.setVisible(false);
             }
         });
         binding.tlMenu.getTabAt(1).select();
