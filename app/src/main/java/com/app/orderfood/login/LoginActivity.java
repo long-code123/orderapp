@@ -1,19 +1,20 @@
-package com.app.orderfood;
+package com.app.orderfood.login;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
-
+import com.app.orderfood.R;
 import com.app.orderfood.databinding.ActivityLoginBinding;
+import com.app.orderfood.models.User;
+import com.app.orderfood.shiper.ShipperMainActivity;
+import com.app.orderfood.shop.ShopMainActivity;
 import com.app.orderfood.user.MainActivity;
-import com.google.android.gms.auth.api.identity.BeginSignInRequest;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -21,17 +22,18 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthProvider;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class LoginActivity extends AppCompatActivity {
@@ -49,7 +51,6 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Force reCAPTCHA flow
         FirebaseAuth.getInstance().getFirebaseAuthSettings().forceRecaptchaFlowForTesting(true);
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -118,31 +119,60 @@ public class LoginActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 100) {
-            // When request code is equal to 100 initialize task
+
             Task<GoogleSignInAccount> signInAccountTask = GoogleSignIn.getSignedInAccountFromIntent(data);
 
             if (signInAccountTask.isSuccessful()) {
-                Toast.makeText(LoginActivity.this, "Ok!!", Toast.LENGTH_SHORT).show();
-
                 try {
-                    // Initialize sign in account
+
                     GoogleSignInAccount googleSignInAccount = signInAccountTask.getResult(ApiException.class);
-                    // Check condition
+
                     if (googleSignInAccount != null) {
-                        // When sign in account is not equal to null initialize auth credential
+
                         AuthCredential authCredential = GoogleAuthProvider.getCredential(googleSignInAccount.getIdToken(), null);
-                        // Check credential
+
                         firebaseAuth.signInWithCredential(authCredential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 // Check condition
                                 if (task.isSuccessful()) {
-                                    // When task is successful redirect to profile activity display Toast
-                                    startActivity(new Intent(LoginActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                                    Toast.makeText(LoginActivity.this, "Firebase authentication successful!!", Toast.LENGTH_SHORT).show();
+                                    String userID = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
+                                    FirebaseDatabase.getInstance().getReference("user")
+                                            .child(userID).get()
+                                            .addOnCompleteListener(task1 -> {
+                                                if (task1.isSuccessful()) {
+                                                    DataSnapshot result = task1.getResult();
+                                                    if (result.exists()) {
+                                                        User user = result.getValue(User.class);
+                                                        Toast.makeText(LoginActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+                                                        Intent intent = new Intent();
+                                                        switch (user.getRole()) {
+                                                            case 1:
+                                                                intent = new Intent(LoginActivity.this, MainActivity.class);
+                                                                break;
+                                                            case 2:
+                                                                intent = new Intent(LoginActivity.this, ShopMainActivity.class);
+                                                                break;
+                                                            case 3:
+                                                                intent = new Intent(LoginActivity.this, ShipperMainActivity.class);
+                                                                break;
+                                                        }
+                                                        startActivity(intent);
+                                                        finish();
+                                                    } else {
+                                                        Intent intent = new Intent(LoginActivity.this, RegisterInfoActivity.class);
+                                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                        startActivity(intent);
+                                                    }
+                                                } else {
+                                                    Toast.makeText(LoginActivity.this, "Đăng nhập không thành công!", Toast.LENGTH_SHORT).show();
+                                                }
+                                            })
+                                            .addOnFailureListener(e -> {
+                                                Toast.makeText(LoginActivity.this, "Đăng nhập không thành công!", Toast.LENGTH_SHORT).show();
+                                            });
                                 } else {
-                                    // When task is unsuccessful display Toast
-                                    Toast.makeText(LoginActivity.this, "Authentication Failed :" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginActivity.this, "Đăng nhập không thành công!", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
@@ -153,7 +183,7 @@ public class LoginActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-            } else  {
+            } else {
                 Toast.makeText(LoginActivity.this, "Fail!!", Toast.LENGTH_SHORT).show();
             }
         }

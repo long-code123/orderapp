@@ -1,5 +1,6 @@
 package com.app.orderfood.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,15 +38,27 @@ public class BestFoodsAdapter extends RecyclerView.Adapter<BestFoodsAdapter.view
 
     @Override
     public void onBindViewHolder(@NonNull BestFoodsAdapter.viewholder holder, int position) {
-        holder.titleTxt.setText(items.get(position).getTitle());
-        holder.priceTxt.setText("$"+items.get(position).getPrice());
-        holder.timeTxt.setText(items.get(position).getTimeValue() + "min");
-        holder.starTxt.setText(""+items.get(position).getStar());
+
+        Foods item = items.get(position);
+
+        holder.titleTxt.setText(item.getTitle());
+        holder.priceTxt.setText("$"+item.getPrice());
+        holder.timeTxt.setText(item.getTimeValue() + "min");
+        holder.starTxt.setText(""+item.getStar());
 
         Glide.with(context)
-                .load(items.get(position).getImagePath())
-                .transform(new CenterCrop(), new RoundedCorners(30))
+                .load(item.getImagePath())
+                //.transform(new CenterCrop(), new RoundedCorners(30))
                 .into(holder.pic);
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void setData(ArrayList<Foods> list) {
+        items.clear();
+        items.addAll(list);
+
+        //update Ui vs dữ liệu mới
+        notifyDataSetChanged();
     }
 
     @Override

@@ -3,11 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
-
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
     <application
         android:allowBackup="false"
@@ -20,6 +19,12 @@
         android:theme="@style/Theme.OrderFood"
         tools:targetApi="31">
         <activity
+            android:name=".shiper.ShipperMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".login.RegisterInfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".BaseActivity"
             android:exported="false" />
         <activity
@@ -27,11 +32,11 @@
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".OTPAuthActivity"
+            android:name=".login.OTPAuthActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".login.LoginActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
@@ -39,11 +44,11 @@
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".AddFoodActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AddFoodActivity"
+            android:name=".SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>

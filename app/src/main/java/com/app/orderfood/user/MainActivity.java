@@ -1,20 +1,14 @@
 package com.app.orderfood.user;
 
 import android.os.Bundle;
-import android.widget.TableLayout;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.app.orderfood.LoginActivity;
-import com.app.orderfood.R;
 import com.app.orderfood.databinding.ActivityMainBinding;
-import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
