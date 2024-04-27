@@ -57,10 +57,10 @@ public class SplashActivity extends AppCompatActivity {
                             DataSnapshot result = task1.getResult();
                             if (result.exists()) {
                                 User user = result.getValue(User.class);
-                                Toast.makeText(SplashActivity.this, "Chào mừng bạn quay lại!", Toast.LENGTH_SHORT).show();
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
+                                        Toast.makeText(SplashActivity.this, "Chào mừng bạn quay lại!", Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent();
                                         switch (user.getRole()) {
                                             case 1:
@@ -76,7 +76,7 @@ public class SplashActivity extends AppCompatActivity {
                                         startActivity(intent);
                                         finish();
                                     }
-                                }, 1000L);
+                                }, 2000L);
                             } else {
                                 Intent intent = new Intent(SplashActivity.this, RegisterInfoActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -101,7 +101,7 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                 finish();
             }
-        }, 1000L);
+        }, 2000L);
 
     }
 

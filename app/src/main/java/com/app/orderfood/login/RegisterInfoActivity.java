@@ -81,6 +81,13 @@ public class RegisterInfoActivity extends AppCompatActivity {
         binding.txtSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (role == 3) {
+                    if (uri == null) {
+                        //Cần anhe
+                        return;
+                    }
+                }
+
                 DialogLoading.show(RegisterInfoActivity.this);
                 if (uri != null) {
                     FirebaseStorage.getInstance().getReference()
