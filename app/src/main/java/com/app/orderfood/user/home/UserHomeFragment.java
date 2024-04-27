@@ -1,5 +1,6 @@
 package com.app.orderfood.user.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,10 +11,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-import com.app.orderfood.R;
+import com.app.orderfood.Adapter.bestfood.BestFoodsAdapter;
+import com.app.orderfood.Adapter.bestfood.OnClickBestFood;
 import com.app.orderfood.databinding.FragmentUserHomeBinding;
-import com.app.orderfood.models.Category;
+import com.app.orderfood.models.Foods;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -24,6 +27,7 @@ import java.util.ArrayList;
 public class UserHomeFragment extends Fragment {
 
     FragmentUserHomeBinding binding;
+    BestFoodsAdapter bestFoodsAdapter;
 
     public UserHomeFragment() {
 
@@ -41,7 +45,7 @@ public class UserHomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         //Code từ đây code đi
-        FirebaseDatabase.getInstance().getReference("Category")
+        /*FirebaseDatabase.getInstance().getReference("Category")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -54,11 +58,11 @@ public class UserHomeFragment extends Fragment {
                             arrayList.add(itemData);
                         }
 
-                        /*Log.e("truongpa", "getAllCategory - Success");
+                        *//*Log.e("truongpa", "getAllCategory - Success");
 
                         for (Category category : arrayList) {
                             Log.e("truongpa", "" + category.getId() + " - " + category.getName());
-                        }*/
+                        }*//*
 
                         //Show data
                     }
@@ -67,6 +71,57 @@ public class UserHomeFragment extends Fragment {
                     public void onCancelled(@NonNull DatabaseError error) {
                         Log.e("truongpa", "getAllCategory - Fail");
                     }
+                });*/
+        bestFoodsAdapter = new BestFoodsAdapter(new ArrayList(), new OnClickBestFood() {
+            @Override
+            public void clickItem(Foods foods, int position) {
+                Toast.makeText(requireContext(), position + " - " + foods.getTitle(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        initView();
+        initData();
+    }
+
+    private void initView() {
+        binding.bestFoodView.setAdapter(bestFoodsAdapter);
+    }
+
+    private void initData() {
+        binding.progressBarBestFood.setVisibility(View.VISIBLE);
+        FirebaseDatabase.getInstance().getReference("Foods")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        ArrayList<Foods> arrayList = new ArrayList<>();
+
+                        for (DataSnapshot item : snapshot.getChildren()) {
+                            Foods itemData = item.getValue(Foods.class);
+                            arrayList.add(itemData);
+                        }
+
+                        Log.e("truongpa", "getAllCategory - Success");
+
+                        for (Foods category : arrayList) {
+                            Log.e("truongpa", "" + category.getId() + " - " + category.getTitle());
+                        }
+                        bestFoodsAdapter.setData(arrayList);
+                        binding.progressBarBestFood.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.e("truongpa", "getAllCategory - Fail");
+                        binding.progressBarBestFood.setVisibility(View.GONE);
+                    }
                 });
+
+    }
+
+    private void initLocation() {
+//        DatabaseReference myred = database.get
     }
 }

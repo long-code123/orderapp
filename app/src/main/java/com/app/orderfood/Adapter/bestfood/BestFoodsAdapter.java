@@ -1,4 +1,4 @@
-package com.app.orderfood.Adapter;
+package com.app.orderfood.Adapter.bestfood;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -9,23 +9,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.orderfood.R;
 import com.app.orderfood.models.Foods;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class BestFoodsAdapter extends RecyclerView.Adapter<BestFoodsAdapter.viewholder> {
     ArrayList<Foods> items;
     Context context;
+    OnClickBestFood onClickBestFood;
 
-    public BestFoodsAdapter(ArrayList<Foods> items) {
+    public BestFoodsAdapter(ArrayList<Foods> items, OnClickBestFood onClickBestFood) {
         this.items = items;
+        this.onClickBestFood = onClickBestFood;
     }
 
     @NonNull
@@ -50,6 +50,11 @@ public class BestFoodsAdapter extends RecyclerView.Adapter<BestFoodsAdapter.view
                 .load(item.getImagePath())
                 //.transform(new CenterCrop(), new RoundedCorners(30))
                 .into(holder.pic);
+
+
+        holder.viewAll.setOnClickListener(v -> {
+            onClickBestFood.clickItem(item, position);
+        });
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -69,8 +74,11 @@ public class BestFoodsAdapter extends RecyclerView.Adapter<BestFoodsAdapter.view
     public class viewholder extends RecyclerView.ViewHolder {
         TextView titleTxt, priceTxt, starTxt, timeTxt;
         ImageView pic;
+
+        CardView viewAll;
         public viewholder(@NonNull View itemView) {
             super(itemView);
+            viewAll = itemView.findViewById(R.id.viewAll);
             titleTxt = itemView.findViewById(R.id.titleTxt);
             priceTxt = itemView.findViewById(R.id.priceTxt);
             starTxt = itemView.findViewById(R.id.starTxt);

@@ -182,7 +182,6 @@ public class LoginActivity extends AppCompatActivity {
                 } catch (ApiException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Toast.makeText(LoginActivity.this, "Fail!!", Toast.LENGTH_SHORT).show();
             }
