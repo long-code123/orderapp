@@ -90,16 +90,17 @@ public class UserHomeFragment extends Fragment {
             }
         });
 
-        initView();
-        initData();
+        initViewBestFood();
+        initDataBestFood();
+        initViewCategory();
+        initDataCategory();
     }
 
-    private void initView() {
+    private void initViewBestFood() {
         binding.bestFoodView.setAdapter(bestFoodsAdapter);
-        binding.categoryView.setAdapter(categoryAdapter);
     }
 
-    private void initData() {
+    private void initDataBestFood() {
         binding.progressBarBestFood.setVisibility(View.VISIBLE);
         FirebaseDatabase.getInstance().getReference("Foods")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -129,36 +130,44 @@ public class UserHomeFragment extends Fragment {
                         binding.progressBarBestFood.setVisibility(View.GONE);
                     }
                 });
-        FirebaseDatabase.getInstance().getReference("Category")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                        ArrayList<Category> arrayList = new ArrayList<>();
-
-                        for (DataSnapshot item : snapshot.getChildren()) {
-                            Category itemData = item.getValue(Category.class);
-                            arrayList.add(itemData);
-                        }
-
-                        Log.e("truongpa", "getAllCategory - Success");
-
-                        for (Category category : arrayList) {
-                            Log.e("truongpa", "" + category.getId() + " - " + category.getName());
-                        }
-                        categoryAdapter.setData(arrayList);
-                        binding.progressBarCategory.setVisibility(View.GONE);
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Log.e("truongpa", "getAllCategory - Fail");
-                        binding.progressBarCategory.setVisibility(View.GONE);
-                    }
-                });
-
     }
+    private void initViewCategory() {
+        binding.categoryView.setAdapter(categoryAdapter);
+    }
+        private void initDataCategory() {
+            FirebaseDatabase.getInstance().getReference("Category")
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                            ArrayList<Category> arrayList = new ArrayList<>();
+
+                            for (DataSnapshot item : snapshot.getChildren()) {
+                                Category itemData = item.getValue(Category.class);
+                                arrayList.add(itemData);
+                            }
+
+                            Log.e("truongpa", "getAllCategory - Success");
+
+                            for (Category category : arrayList) {
+                                Log.e("truongpa", "" + category.getId() + " - " + category.getName());
+                            }
+                            categoryAdapter.setData(arrayList);
+                            binding.progressBarCategory.setVisibility(View.GONE);
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Log.e("truongpa", "getAllCategory - Fail");
+                            binding.progressBarCategory.setVisibility(View.GONE);
+                        }
+                    });
+
+        }
+
+
+
 
     private void initLocation() {
 //        DatabaseReference myred = database.get
