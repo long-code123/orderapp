@@ -1,30 +1,30 @@
 package com.app.orderfood.models;
 
 public class Price {
-    private int Id;
-    private String Value;
+    private int id;
+    private String value;
 
     public Price() {
     }
 
     @Override
     public String toString() {
-        return Value;
+        return value;
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getValue() {
-        return Value;
+        return value;
     }
 
     public void setValue(String value) {
-        Value = value;
+        this.value = value;
     }
 }

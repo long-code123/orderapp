@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.app.orderfood.fb.Utils;
 import com.app.orderfood.login.LoginActivity;
 import com.app.orderfood.login.OTPAuthActivity;
 import com.app.orderfood.login.RegisterInfoActivity;
@@ -60,7 +61,7 @@ public class SplashActivity extends AppCompatActivity {
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(SplashActivity.this, "Chào mừng bạn quay lại!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(SplashActivity.this, "Welcome back!", Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent();
                                         switch (user.getRole()) {
                                             case 1:

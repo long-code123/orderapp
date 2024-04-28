@@ -22,7 +22,7 @@
         android:id="@+id/txttitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Đăng nhập"
+        android:text="Login"
         android:textColor="@color/color_primary"
         android:textSize="28sp"
         android:textStyle="bold"
@@ -47,7 +47,7 @@
             android:id="@+id/edtNumber"
             android:layout_width="0dp"
             android:inputType="text"
-            android:hint="Nhập số điện thoại"
+            android:hint="Enter phone numbuer"
             android:layout_height="match_parent"
             android:layout_weight="1"/>
 
@@ -58,7 +58,7 @@
         android:layout_marginTop="24dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Gửi OTP"/>
+        android:text="Send OTP"/>
     
     <Button
         android:id="@+id/btnGg"

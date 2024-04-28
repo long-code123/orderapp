@@ -8,7 +8,7 @@ public class User {
     String address;
 
     // 1 - User
-    // 2 - User
+    // 2 - seller
     // 3 - Ship
     int role;
     int status;

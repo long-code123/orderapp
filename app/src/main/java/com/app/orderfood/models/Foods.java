@@ -1,34 +1,34 @@
 package com.app.orderfood.models;
 
 public class Foods {
-    private long Id;
-    private int CategoryId;
-    private String Description;
-    private boolean BestFood;
-    private int LocationId;
-    private double Price;
-    private String ImagePath;
-    private int PriceId;
-    private double Star;
-    private int TimeId;
-    private int TimeValue;
-    private String Title;
+    private long id;
+    private int categoryId;
+    private String description;
+    private boolean bestFood;
+    private int locationId;
+    private double price;
+    private String imagePath;
+    private int priceId;
+    private double star;
+    private int timeId;
+    private int timeValue;
+    private String title;
     private int numberInCart;
 
 
     public Foods(long id, int categoryId, String description, boolean bestFood, int locationId, double price, String imagePath, int priceId, double star, int timeId, int timeValue, String title, int numberInCart) {
-        Id = id;
-        CategoryId = categoryId;
-        Description = description;
-        BestFood = bestFood;
-        LocationId = locationId;
-        Price = price;
-        ImagePath = imagePath;
-        PriceId = priceId;
-        Star = star;
-        TimeId = timeId;
-        TimeValue = timeValue;
-        Title = title;
+        this.id = id;
+        this.categoryId = categoryId;
+        this.description = description;
+        this.bestFood = bestFood;
+        this.locationId = locationId;
+        this.price = price;
+        this.imagePath = imagePath;
+        this.priceId = priceId;
+        this.star = star;
+        this.timeId = timeId;
+        this.timeValue = timeValue;
+        this.title = title;
         this.numberInCart = numberInCart;
     }
 
@@ -37,103 +37,103 @@ public class Foods {
 
     @Override
     public String toString() {
-        return Title;
+        return title;
     }
 
     public int getCategoryId() {
-        return CategoryId;
+        return categoryId;
     }
 
     public void setCategoryId(int categoryId) {
-        CategoryId = categoryId;
+        this.categoryId = categoryId;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
     public boolean isBestFood() {
-        return BestFood;
+        return bestFood;
     }
 
     public void setBestFood(boolean bestFood) {
-        BestFood = bestFood;
+        this.bestFood = bestFood;
     }
 
     public long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(long id) {
-        Id = id;
+        this.id = id;
     }
 
     public int getLocationId() {
-        return LocationId;
+        return locationId;
     }
 
     public void setLocationId(int locationId) {
-        LocationId = locationId;
+        this.locationId = locationId;
     }
 
     public double getPrice() {
-        return Price;
+        return price;
     }
 
     public void setPrice(double price) {
-        Price = price;
+        this.price = price;
     }
 
     public String getImagePath() {
-        return ImagePath;
+        return imagePath;
     }
 
     public void setImagePath(String imagePath) {
-        ImagePath = imagePath;
+        this.imagePath = imagePath;
     }
 
     public int getPriceId() {
-        return PriceId;
+        return priceId;
     }
 
     public void setPriceId(int priceId) {
-        PriceId = priceId;
+        this.priceId = priceId;
     }
 
     public double getStar() {
-        return Star;
+        return star;
     }
 
     public void setStar(double star) {
-        Star = star;
+        this.star = star;
     }
 
     public int getTimeId() {
-        return TimeId;
+        return timeId;
     }
 
     public void setTimeId(int timeId) {
-        TimeId = timeId;
+        this.timeId = timeId;
     }
 
     public int getTimeValue() {
-        return TimeValue;
+        return timeValue;
     }
 
     public void setTimeValue(int timeValue) {
-        TimeValue = timeValue;
+        this.timeValue = timeValue;
     }
 
     public String getTitle() {
-        return Title;
+        return title;
     }
 
     public void setTitle(String title) {
-        Title = title;
+        this.title = title;
     }
 
     public int getNumberInCart() {

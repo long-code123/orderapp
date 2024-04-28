@@ -14,8 +14,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.app.orderfood.Adapter.bestfood.BestFoodsAdapter;
+import com.app.orderfood.Adapter.bestfood.CategoryAdapter;
 import com.app.orderfood.Adapter.bestfood.OnClickBestFood;
+import com.app.orderfood.Adapter.bestfood.OnClickCategory;
 import com.app.orderfood.databinding.FragmentUserHomeBinding;
+import com.app.orderfood.models.Category;
 import com.app.orderfood.models.Foods;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,6 +31,7 @@ public class UserHomeFragment extends Fragment {
 
     FragmentUserHomeBinding binding;
     BestFoodsAdapter bestFoodsAdapter;
+    CategoryAdapter categoryAdapter;
 
     public UserHomeFragment() {
 
@@ -79,6 +83,12 @@ public class UserHomeFragment extends Fragment {
             }
         });
 
+        categoryAdapter = new CategoryAdapter(new ArrayList(), new OnClickCategory() {
+            @Override
+            public void clickItem(Category category, int position) {
+                Toast.makeText(requireContext(), position + " - " + category.getName(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
         initView();
         initData();
@@ -86,6 +96,7 @@ public class UserHomeFragment extends Fragment {
 
     private void initView() {
         binding.bestFoodView.setAdapter(bestFoodsAdapter);
+        binding.categoryView.setAdapter(categoryAdapter);
     }
 
     private void initData() {
@@ -116,6 +127,34 @@ public class UserHomeFragment extends Fragment {
                     public void onCancelled(@NonNull DatabaseError error) {
                         Log.e("truongpa", "getAllCategory - Fail");
                         binding.progressBarBestFood.setVisibility(View.GONE);
+                    }
+                });
+        FirebaseDatabase.getInstance().getReference("Category")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        ArrayList<Category> arrayList = new ArrayList<>();
+
+                        for (DataSnapshot item : snapshot.getChildren()) {
+                            Category itemData = item.getValue(Category.class);
+                            arrayList.add(itemData);
+                        }
+
+                        Log.e("truongpa", "getAllCategory - Success");
+
+                        for (Category category : arrayList) {
+                            Log.e("truongpa", "" + category.getId() + " - " + category.getName());
+                        }
+                        categoryAdapter.setData(arrayList);
+                        binding.progressBarCategory.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.e("truongpa", "getAllCategory - Fail");
+                        binding.progressBarCategory.setVisibility(View.GONE);
                     }
                 });
 

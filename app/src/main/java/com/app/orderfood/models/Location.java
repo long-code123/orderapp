@@ -1,30 +1,30 @@
 package com.app.orderfood.models;
 
 public class Location {
-    private int Id;
-    public String Loc;
+    private int id;
+    public String loc;
 
     public Location() {
     }
 
-    @Override
-    public String toString() {
-        return Loc;
+    public Location(int id, String loc) {
+        this.id = id;
+        this.loc = loc;
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getLoc() {
-        return Loc;
+        return loc;
     }
 
     public void setLoc(String loc) {
-        Loc = loc;
+        this.loc = loc;
     }
 }
