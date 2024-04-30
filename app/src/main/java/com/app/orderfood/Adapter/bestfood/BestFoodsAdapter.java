@@ -55,6 +55,9 @@ public class BestFoodsAdapter extends RecyclerView.Adapter<BestFoodsAdapter.view
         holder.viewAll.setOnClickListener(v -> {
             onClickBestFood.clickItem(item, position);
         });
+        holder.btnPlus.setOnClickListener(view -> {
+            
+        });
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -72,8 +75,9 @@ public class BestFoodsAdapter extends RecyclerView.Adapter<BestFoodsAdapter.view
     }
 
     public class viewholder extends RecyclerView.ViewHolder {
-        TextView titleTxt, priceTxt, starTxt, timeTxt;
+        TextView titleTxt, priceTxt, starTxt, timeTxt, btnPlus;
         ImageView pic;
+
 
         CardView viewAll;
         public viewholder(@NonNull View itemView) {
@@ -83,7 +87,9 @@ public class BestFoodsAdapter extends RecyclerView.Adapter<BestFoodsAdapter.view
             priceTxt = itemView.findViewById(R.id.priceTxt);
             starTxt = itemView.findViewById(R.id.starTxt);
             timeTxt = itemView.findViewById(R.id.timeTxt);
+            btnPlus = itemView.findViewById(R.id.btnPlus);
             pic = itemView.findViewById(R.id.pic);
+
 
         }
     }

@@ -134,7 +134,7 @@ public class UserHomeFragment extends Fragment {
     private void initViewCategory() {
         binding.categoryView.setAdapter(categoryAdapter);
     }
-        private void initDataCategory() {
+    private void initDataCategory() {
             FirebaseDatabase.getInstance().getReference("Category")
                     .addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
